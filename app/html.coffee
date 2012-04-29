@@ -30,9 +30,14 @@ exports.submitRating = """
     }
 })
     function submit(){
-    $.post($('#url').val(), JSON.parse($('#attr').val()), function(data){
-      $('pre').html(data)
-    });
+      try{
+        $.post($('#url').val(), JSON.parse($('#attr').val()), function(data){
+          $('pre').hide().fadeIn().html(data)
+        });
+      }
+      catch(e){
+          $('pre').hide().fadeIn().html("<span style='color:red'>"+e+"</span>")
+        }
     }
     $('#submit').click(submit)
     $('#attr').keydown(function(e){
