@@ -50,15 +50,60 @@ app.post('/:apikey/user_likeiness', (req, res) ->
     return
 
   user = collection.getUser userID
+  
+  userArray = findSimilarUsers user, collection
+  res.end(JSON.stringify(userArray))
+)
+
+app.get('/:apikey/user_likeiness', (req, res) ->
+  userID = req.query["userID"]
+
+  collection = apiKeys[req.params.apikey]
+
+  unless collection?
+    res.end "INVALID API KEY"
+    return
+
+  user = collection.getUser userID
+  
+  userArray = findSimilarUsers user, collection
+  res.end("p(#{JSON.stringify(userArray)})")
+)
+
+
+findSimilarUsers = (user, collection) ->
   things = user.ratedThings
 
   similarUsers = {}
-  for thing in things
-    a
-  
-  res.end()
-)
 
+  for thingID,attrs of things
+    thing = collection.getThing(thingID)
+
+    for attribute,score of attrs
+      score = parseInt score
+      users = thing.attr[attribute][score]
+      usersl = thing.attr[attribute][score-1]
+      usersg = thing.attr[attribute][score+1]
+      usersl ?= []
+      usersg ?= []
+
+      for tmp in users
+        similarUsers[tmp] ?= 0
+        similarUsers[tmp]+=2
+      for tmp in usersl
+        similarUsers[tmp] ?= 0
+        similarUsers[tmp]++
+      for tmp in usersg
+        similarUsers[tmp] ?= 0
+        similarUsers[tmp]++
+
+
+  delete similarUsers[user.id]
+  outArr = []
+  for user of similarUsers
+    outArr.push user
+
+  outArr.sort((a,b) -> similarUsers[b]-similarUsers[a] )
 
 
 app.listen parseInt process.env.PORT

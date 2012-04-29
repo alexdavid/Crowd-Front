@@ -2,9 +2,9 @@
 
 class exports.User
 
-  constructor: ->
+  constructor: (@id) ->
     @attr = {}
-    @ratedThings = []
+    @ratedThings = {}
 
 
   rate: (thingID, attrs) ->
@@ -16,7 +16,7 @@ class exports.User
       @attr[attrName][score] ?= []
       @attr[attrName][score].push thingID
 
-    @ratedThings.push thingID
+    @ratedThings[thingID] = attrs
 
     "Success"
 
