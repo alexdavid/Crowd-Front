@@ -8,16 +8,23 @@ apiKeys['test'] = new Collection()
 
 
 app = EXPRESS.createServer()
+app.use(EXPRESS.bodyParser())
 
 
 app.get('/', (req, res) ->
   res.end "Welcome to CrowdFront"
 )
 
-app.get('/:apikey/rate', (req, res) ->
-  thingID = 1
-  userID = 1
-  attr = {}
+app.get('/example', (req, res) ->
+  res.send require('./html').submitRating
+  res.end 200, { 'Content-Type': 'text/html' }
+)
+
+app.post('/:apikey/rate', (req, res) ->
+  console.log req.body
+  thingID = req.body.thingID
+  userID = req.body.userID
+  attr = req.body.attr
 
   collection = apiKeys[req.params.apikey]
 
@@ -30,4 +37,4 @@ app.get('/:apikey/rate', (req, res) ->
 )
 
 
-app.listen process.env.PORT
+app.listen parseInt process.env.PORT
