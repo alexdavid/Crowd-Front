@@ -21,7 +21,6 @@ app.get('/example', (req, res) ->
 )
 
 app.post('/:apikey/rate', (req, res) ->
-  console.log req.body
   thingID = req.body.thingID
   userID = req.body.userID
   attr = req.body.attr
@@ -39,6 +38,12 @@ app.post('/:apikey/rate', (req, res) ->
   user = collection.getUser(userID)
   res.end user.rate thingID, attr
 )
+
+
+app.post('/:apikey/user_likeiness', (req, res) ->
+  res.end()
+)
+
 
 
 app.listen parseInt process.env.PORT
