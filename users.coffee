@@ -15,4 +15,4 @@ class exports.User
       @attr[attrName][score] ?= []
       @attr[attrName][score].push thingID
 
-    0
+    "Success"
