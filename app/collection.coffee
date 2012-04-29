@@ -54,3 +54,9 @@ class exports.Collection
     outArr.sort((a,b) -> similarUsers[b]-similarUsers[a] )
 
 
+  rate: (userID, thingID, attr) ->
+    user = @getUser(userID)
+    thing = @getThing(thingID)
+    out = user.rate thingID, attr
+    out += "\n"
+    out += thing.rate userID, attr

@@ -27,12 +27,17 @@ app.post('/:apikey/rate', (req, res) ->
     thingID = req.body.thingID
     userID = req.body.userID
     attr = req.body.attr
-    user = collection.getUser(userID)
-    thing = collection.getThing(thingID)
-    out = user.rate thingID, attr
-    out += "\n"
-    out += thing.rate userID, attr
-    res.end out
+    res.end collection.rate userID, thingID, attr
+)
+
+app.get('/:apikey/rate', (req, res) ->
+
+  getCollection req, res, (collection)->
+    req.body = JSON.parse(req.query["data"])
+    thingID = req.body.thingID
+    userID = req.body.userID
+    attr = req.body.attr
+    res.end 'p("'+collection.rate(userID, thingID, attr)+'")'
 )
 
 
