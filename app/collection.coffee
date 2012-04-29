@@ -18,3 +18,39 @@ class exports.Collection
     thing = @things[id]
     return thing if thing?
     @things[id] = new Thing(id)
+
+
+  findSimilarUsers: (user) ->
+    things = user.ratedThings
+
+    similarUsers = {}
+
+    for thingID,attrs of things
+      thing = @getThing(thingID)
+
+      for attribute,score of attrs
+        score = parseInt score
+        users = thing.attr[attribute][score]
+        usersl = thing.attr[attribute][score-1]
+        usersg = thing.attr[attribute][score+1]
+        usersl ?= []
+        usersg ?= []
+
+        for tmp in users
+          similarUsers[tmp] ?= 0
+          similarUsers[tmp]+=2
+        for tmp in usersl
+          similarUsers[tmp] ?= 0
+          similarUsers[tmp]++
+        for tmp in usersg
+          similarUsers[tmp] ?= 0
+          similarUsers[tmp]++
+
+    delete similarUsers[user.id]
+    outArr = []
+    for user of similarUsers
+      outArr.push user
+
+    outArr.sort((a,b) -> similarUsers[b]-similarUsers[a] )
+
+
