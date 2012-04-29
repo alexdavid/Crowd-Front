@@ -26,6 +26,10 @@ app.post('/:apikey/rate', (req, res) ->
   userID = req.body.userID
   attr = req.body.attr
 
+  unless userID?
+    res.end "MISSING userID"
+    return
+
   collection = apiKeys[req.params.apikey]
 
   unless collection?
@@ -33,7 +37,7 @@ app.post('/:apikey/rate', (req, res) ->
     return
 
   user = collection.getUser(userID)
-  res.end ""+user.rate thingID, attr
+  res.end user.rate thingID, attr
 )
 
 

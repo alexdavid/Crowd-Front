@@ -7,8 +7,8 @@ class exports.User
 
 
   rate: (thingID, attrs) ->
-    return -1 unless thingID?
-    return -1 unless typeof attrs is "object"
+    return "MISSING thingID" unless thingID?
+    return "MISSING attr" unless typeof attrs is "object"
 
     for attrName,score of attrs
       @attr[attrName] ?= []

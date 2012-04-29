@@ -23,7 +23,6 @@ exports.submitRating = """
     $.post($('#url').val(), JSON.parse($('#attr').val()), function(data){
       $('pre').html(data)
     });
-    $('#attr').val("")
     }
     $('#submit').click(submit)
   </script>
