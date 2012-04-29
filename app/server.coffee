@@ -40,6 +40,33 @@ app.get('/:apikey/rate', (req, res) ->
     res.end 'p("'+collection.rate(userID, thingID, attr).replace(/\n/g," ")+'")'
 )
 
+app.get('/:apikey/thing_likeiness', (req, res) ->
+
+  things = {}
+  getCollection req, res, (collection)->
+    user = collection.getUser req.query["userID"]
+    userArray = collection.findSimilarUsers user
+
+    for u in userArray
+      u = collection.getUser(u)
+      for thingID,thing of u.ratedThings
+        things[thingID] ?= 0
+        for attr,score of thing
+          things[thingID] += score
+
+
+    #remove places that the user has visited before
+    for thingID of user.ratedThings
+      delete things[thingID]
+
+    outArr = []
+    for a of things
+      outArr.push a
+
+    outArr.sort((a,b) -> things[b]-things[a] )
+    res.end 'p('+JSON.stringify(outArr)+')'
+)
+
 
 app.post('/:apikey/user_likeiness', (req, res) ->
 
