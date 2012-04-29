@@ -37,7 +37,7 @@ app.get('/:apikey/rate', (req, res) ->
     thingID = req.body.thingID
     userID = req.body.userID
     attr = req.body.attr
-    res.end 'p("'+collection.rate(userID, thingID, attr)+'")'
+    res.end 'p("'+collection.rate(userID, thingID, attr).replace(/\n/g," ")+'")'
 )
 
 
