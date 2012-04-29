@@ -8,7 +8,7 @@ exports.submitRating = """
 </head>
 <body>
   <input id="url" value="/test/rate"><br>
-  <textarea id="attr" style="width:500px;height:200px">{
+  <textarea id="attr" style="width:500px;height:200px;font-size:20px">{
   "userID": 1,
   "thingID": 1,
   "attr": {
@@ -16,7 +16,7 @@ exports.submitRating = """
 }
   </textarea>
   <input id="submit" type="submit">
-  <pre></pre>
+  <pre style="font-size:20px"></pre>
   <script>
     function submit(){
       console.log(JSON.parse($('#attr').val()))
