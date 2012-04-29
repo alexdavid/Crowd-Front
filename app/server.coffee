@@ -5,6 +5,7 @@ User = require('./users').User
 
 apiKeys = {}
 apiKeys['test'] = new Collection()
+apiKeys['recommendla'] = new Collection()
 
 
 app = EXPRESS.createServer()
