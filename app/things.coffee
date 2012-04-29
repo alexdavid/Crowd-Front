@@ -1,23 +1,20 @@
 
 
-class exports.User
+class exports.Thing
+
 
   constructor: ->
     @attr = {}
-    @ratedThings = []
 
 
-  rate: (thingID, attrs) ->
-    return "MISSING thingID" unless thingID?
+
+  rate: (userID, attrs) ->
+    return "MISSING userID" unless userID?
     return "MISSING attr" unless typeof attrs is "object"
 
     for attrName,score of attrs
       @attr[attrName] ?= []
       @attr[attrName][score] ?= []
-      @attr[attrName][score].push thingID
-
-    @ratedThings.push thingID
+      @attr[attrName][score].push userID
 
     "Success"
-
-

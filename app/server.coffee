@@ -25,10 +25,6 @@ app.post('/:apikey/rate', (req, res) ->
   userID = req.body.userID
   attr = req.body.attr
 
-  unless userID?
-    res.end "MISSING userID"
-    return
-
   collection = apiKeys[req.params.apikey]
 
   unless collection?
@@ -36,11 +32,30 @@ app.post('/:apikey/rate', (req, res) ->
     return
 
   user = collection.getUser(userID)
-  res.end user.rate thingID, attr
+  thing = collection.getThing(thingID)
+  out = user.rate thingID, attr
+  out += "\n"
+  out += thing.rate userID, attr
+  res.end out
 )
 
 
 app.post('/:apikey/user_likeiness', (req, res) ->
+  userID = req.body.userID
+
+  collection = apiKeys[req.params.apikey]
+
+  unless collection?
+    res.end "INVALID API KEY"
+    return
+
+  user = collection.getUser userID
+  things = user.ratedThings
+
+  similarUsers = {}
+  for thing in things
+    a
+  
   res.end()
 )
 
