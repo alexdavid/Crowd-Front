@@ -64,6 +64,9 @@ app.get('/:apikey/thing_likeiness', (req, res) ->
       outArr.push a
 
     outArr.sort((a,b) -> things[b]-things[a] )
+    for thingID,i in outArr
+      outArr[i] = collection.getThing(thingID).getAverage()
+      outArr[i].placeName = thingID
     res.end 'p('+JSON.stringify(outArr)+')'
 )
 

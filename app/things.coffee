@@ -18,3 +18,18 @@ class exports.Thing
       @attr[attrName][score].push userID
 
     "Success"
+
+
+  getAverage: ->
+    out = {}
+    for attrName,arr of @attr
+      sum = 0
+      out[attrName] = 0
+      for q,i in arr
+        m = q?.length
+        m = 0 unless m?
+        out[attrName] += i*m
+        sum += m
+      out[attrName] /= sum
+
+    out
