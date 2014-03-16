@@ -1,6 +1,6 @@
 Crowd-Front
 ===========
-http://crowdfront.net
+http://crowdfront.herokuapp.com
 
 
 Our submission to the #CityGridHackathonLA.
@@ -28,5 +28,5 @@ GET or POST to /APIKEY/user_likeiness with userID to get an array of similar use
 GET or POST to /APIKEY/thing_likeiness with userID to get an array of things that user may like with average attributes rated from similar users.
 
 
-Visit http://crowdfront.net/example to demo app functionality. Use the APIKey "test"
+Visit http://crowdfront.herokuapp.com/example to demo app functionality. Use the APIKey "test"
 
